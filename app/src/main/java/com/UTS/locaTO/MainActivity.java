@@ -1,4 +1,4 @@
-package com.example.benn.toapp;
+package com.UTS.locaTO;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
 // just a test by mr. hutchison
 
 public class MainActivity extends AppCompatActivity {

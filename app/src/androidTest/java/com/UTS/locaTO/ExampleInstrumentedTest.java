@@ -1,4 +1,4 @@
-package com.example.benn.toapp;
+package com.UTS.locaTO;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
