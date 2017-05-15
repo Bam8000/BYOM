@@ -3,8 +3,6 @@ package com.UTS.locaTO.APIs;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.UTS.locaTO.MainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,10 +40,14 @@ public class Reddit extends AsyncTask<Void, Void, String[]> {
             String redditDate = recent.getString("title").split(" - ")[0];
             if (currentDate.equalsIgnoreCase(redditDate)) {
                 String[] events = recent.getString("selftext").split("\\n\\n");
-                Log.i("APIs.Reddit: ", "Updating events from /u/torontothingstodo");
+                Log.i("APIs.Reddit", "Updating events from /u/torontothingstodo");
+                for (String event : events) {
+                    String title = event.replaceAll("(.*\\[)|(\\].*)", "");
+                    String link = event.replaceAll("(.*\\()|(\\).*)", "");
+                }
                 return events;
             } else {
-                Log.w("APIs.Reddit: ", "/u/torontothingstodo has not yet posted today's events");
+                Log.w("APIs.Reddit", "/u/torontothingstodo has not yet posted today's events");
                 return null;
             }
         } catch (IOException | JSONException e) {
