@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by yammi on 5/17/2017.
+ * Created by Mio on 5/17/2017.
  */
 
 public class ListItem implements Comparable {
@@ -36,6 +36,18 @@ public class ListItem implements Comparable {
         return time;
     }
 
+    public double getCost() {
+        return cost;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public ArrayList<String> getKeywords() {
+        return keywords;
+    }
+
     @Override
     public int compareTo(Object obj) {
         Date d = (Date) obj;
@@ -52,10 +64,12 @@ public class ListItem implements Comparable {
     public boolean equals(Object obj) {
         if (obj instanceof ListItem) {
             ListItem e = (ListItem) obj;
-            if (e.getEventName() == eventName && e.getLocation() == location && e.getTime().equals(time)) {
+            if (e.getEventName().equals(eventName) && e.getLocation().equals(location) && e.getTime().equals(time)) {
                 return true;
             }
         }
         return false;
     }
+
+
 }
