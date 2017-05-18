@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by yammi on 5/17/2017.
  */
 
-public class ListItem {
+public class ListItem implements Comparable {
     private String eventName;
     private String location;
     private double cost;
@@ -34,5 +34,16 @@ public class ListItem {
 
     public Date getTime() {
         return time;
+    }
+
+    public int compareTo(Object obj) {
+        Date d = (Date) obj;
+        if (time.after(d)) {
+            return -1;
+        } else if (time.before(d)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
