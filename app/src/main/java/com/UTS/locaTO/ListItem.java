@@ -36,6 +36,7 @@ public class ListItem implements Comparable {
         return time;
     }
 
+    @Override
     public int compareTo(Object obj) {
         Date d = (Date) obj;
         if (time.after(d)) {
@@ -45,5 +46,16 @@ public class ListItem implements Comparable {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ListItem) {
+            ListItem e = (ListItem) obj;
+            if (e.getEventName() == eventName && e.getLocation() == location && e.getTime().equals(time)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
