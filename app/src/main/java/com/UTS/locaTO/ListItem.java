@@ -13,13 +13,15 @@ public class ListItem implements Comparable {
     private double cost;
     private Date time;
     private ArrayList<String> keywords;
+    private ArrayList<String> categories;
     private String url;
 
-    public ListItem(String eventName, String location,  Date time, ArrayList<String> keywords, double cost, String url) {
+    public ListItem(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url) {
         this.eventName = eventName;
         this.location = location;
         this.time = time;
         this.keywords = keywords;
+        this.categories = categories;
         this.cost = cost;
         this.url = url;
     }
@@ -43,6 +45,8 @@ public class ListItem implements Comparable {
     public String getUrl() {
         return url;
     }
+
+    public ArrayList<String> getCategories() { return categories; }
 
     public ArrayList<String> getKeywords() {
         return keywords;

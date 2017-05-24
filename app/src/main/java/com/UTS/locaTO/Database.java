@@ -2,10 +2,13 @@ package com.UTS.locaTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Benn on 2017-05-15.
  */
+
 
 public class Database {
     private ArrayList<ListItem> events;
@@ -32,5 +35,14 @@ public class Database {
         }
     }
 
+    public void createCategories() {
+        Set<String> categories = new HashSet<>();
+        for (ListItem item : events) {
+            for (String category : item.getCategories()) {
+                categories.add(category);
+            }
+        }
+
+    }
 
 }
