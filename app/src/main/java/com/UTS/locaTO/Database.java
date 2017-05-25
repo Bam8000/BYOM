@@ -11,14 +11,14 @@ import java.util.Set;
 
 
 public class Database {
-    private ArrayList<ListItem> events;
+    private ArrayList<Event> events;
 
-    public Database(ArrayList<ListItem> events) {
+    public Database(ArrayList<Event> events) {
         this.events = events;
         updateEvents();
     }
 
-    public void addEvent(ListItem e) {
+    public void addEvent(Event e) {
         events.add(e);
         updateEvents();
     }
@@ -36,13 +36,14 @@ public class Database {
     }
 
     public void createCategories() {
-        Set<String> categories = new HashSet<>();
-        for (ListItem item : events) {
-            for (String category : item.getCategories()) {
-                categories.add(category);
+        Set<Categories> categories = new HashSet<>();
+        for (Event event : events) {
+            for (String tag : event.getCategories()) {
+                categories.add(new Tags(tag));
+
             }
         }
-
     }
+
 
 }

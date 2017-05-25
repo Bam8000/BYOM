@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Mio on 5/17/2017.
  */
 
-public class ListItem implements Comparable {
+public class Event implements Comparable {
     private String eventName;
     private String location;
     private double cost;
@@ -16,7 +16,7 @@ public class ListItem implements Comparable {
     private ArrayList<String> categories;
     private String url;
 
-    public ListItem(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url) {
+    public Event(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url) {
         this.eventName = eventName;
         this.location = location;
         this.time = time;
@@ -66,13 +66,18 @@ public class ListItem implements Comparable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ListItem) {
-            ListItem e = (ListItem) obj;
+        if (obj instanceof Event) {
+            Event e = (Event) obj;
             if (e.getEventName().equals(eventName) && e.getLocation().equals(location) && e.getTime().equals(time)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Event name: " + eventName + "\nLocation: " + location + "\nDate: " + time + "\nCost: " + cost + "\nLink: " + url;
     }
 
 
