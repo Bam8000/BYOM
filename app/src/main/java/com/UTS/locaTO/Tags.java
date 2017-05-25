@@ -12,8 +12,8 @@ public class Tags {
 
     public Tags (String title) {
         this.title = title;
+        events = new ArrayList<Event>();
     }
-
 
     public void addEvent(Event event) {
         events.add(event);

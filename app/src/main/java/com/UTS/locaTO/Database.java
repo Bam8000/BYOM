@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class Database {
     private ArrayList<Event> events;
+    private Categories categoriesList;
 
     public Database(ArrayList<Event> events) {
         this.events = events;
@@ -36,12 +37,27 @@ public class Database {
     }
 
     public void createCategories() {
-        Set<Categories> categories = new HashSet<>();
+        Set<Tags> categories = new HashSet<>();
         for (Event event : events) {
             for (String tag : event.getCategories()) {
                 categories.add(new Tags(tag));
-
             }
+        } for (Tags tag : categories) {
+            categoriesList.addCategory(tag);
+        }
+    }
+
+    private void createTags() {
+        ArrayList<Tags> tags = new HashSet<>();
+        for (Event event : events) {
+            for (String tag : event.getCategories()) {
+                Tags tmp = new Tags(tag);
+                if (!tags.contains(tmp)) {
+                    tmp.addEvent(event);
+                }
+            }
+        } for (String tag : tags) {
+            categoriesList.addCategory(new Tags(tag));
         }
     }
 
