@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.net.Uri;
+import android.content.Intent;
 
 import com.UTS.locaTO.APIs.Reddit;
 
@@ -77,4 +79,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void zoneClick(Event model) {
+
+        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+    }
 }

@@ -52,6 +52,14 @@ public class Event implements Comparable {
         return keywords;
     }
 
+    public String displayKeywords() {
+        String s = "";
+        for (int i = 0; i < keywords.size() - 1; i++) {
+            s += keywords.get(i) + ", "
+        } s += keywords.get(keywords.size() - 1);
+        return s;
+    }
+
     @Override
     public int compareTo(Object obj) {
         Date d = (Date) obj;
