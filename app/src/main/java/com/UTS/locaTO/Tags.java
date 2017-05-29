@@ -19,9 +19,19 @@ public class Tags {
         events.add(event);
     }
 
-    public Event display() {
-        for (Event event : events) return event;
-        return null;
+    public String getTitle() {
+        return title;
+    }
+
+    public ArrayList<Event> display() {
+        return events;
+    }
+
+    public String toString() {
+        String s = title;
+        for (Event event : events) {
+            s += event + "\n";
+        } return s;
     }
 
 }
