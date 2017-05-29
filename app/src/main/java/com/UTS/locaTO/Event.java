@@ -55,7 +55,7 @@ public class Event implements Comparable {
     public String displayKeywords() {
         String s = "";
         for (int i = 0; i < keywords.size() - 1; i++) {
-            s += keywords.get(i) + ", "
+            s += keywords.get(i) + ", ";
         } s += keywords.get(keywords.size() - 1);
         return s;
     }
