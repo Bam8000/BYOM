@@ -1,8 +1,16 @@
 package com.UTS.locaTO;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -48,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.reddit.execute();
+        this.getLocation();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -88,4 +104,46 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mapIntent);
         }
     }
+    public void getLocation() {
+        // Check for permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+
+        // Get the location manager
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Find best provider
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria, true);
+        if (provider == null) {
+            provider = "gps";
+        }
+
+        Location location = locationManager.getLastKnownLocation(provider);
+
+        if (location != null) {
+            Log.i("Location", "Provider " + provider + " has been selected.");
+            this.onLocationChanged(location);
+        } else {
+            if (provider.equals("gps")) {
+                provider = "network";
+            } else {
+                provider = "gps";
+            }
+            location = locationManager.getLastKnownLocation(provider);
+            if (location != null) {
+                this.onLocationChanged(location);
+            } else {
+                Log.i("Location", "Location not available");
+            }
+        }
+    }
+
+    public void onLocationChanged(Location location) {
+        double lat = (location.getLatitude());
+        double lng = (location.getLongitude());
+        Log.i("Location", "Lat: " + lat + ", Lng: " + lng);
+    }
+
 }
