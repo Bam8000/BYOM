@@ -17,8 +17,9 @@ public class Event implements Comparable {
     private ArrayList<String> keywords;
     private ArrayList<String> categories;
     private String url;
+    private String photoUrl;
 
-    public Event(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url) {
+    public Event(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url, String photoUrl) {
         this.eventName = eventName;
         this.location = location;
         this.time = time;
@@ -26,6 +27,7 @@ public class Event implements Comparable {
         this.categories = categories;
         this.cost = cost;
         this.url = url;
+        this.photoUrl = photoUrl
     }
 
     public String getEventName() {
@@ -53,6 +55,12 @@ public class Event implements Comparable {
     Appends the string "km" to the end of the number.
      */
     public String getDistance() {
+        //TODO
+        return null;
+    }
+
+    //Here's the method, Marcel for you to do. Using it in EventsAdapter.
+    public String getPhotoUrl() {
         //TODO
         return null;
     }
