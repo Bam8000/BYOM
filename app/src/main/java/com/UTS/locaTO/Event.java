@@ -54,7 +54,7 @@ public class Event implements Comparable {
      */
     public String getDistance() {
         //TODO
-
+        return null;
     }
 
 

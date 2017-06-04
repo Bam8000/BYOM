@@ -12,16 +12,18 @@ import java.util.Set;
 
 public class Database {
     private ArrayList<Event> events;
+    private Tags categories;
 
     public Database() {
         this.events = new ArrayList<Event>();
+        categories = new Tags(events);
     }
 
 
     public void addEvent(Event e) {
         if (!this.events.contains(e)) {
             this.events.add(e);
-            updateCategories(e);
+            categories.updateCategories(e);
         }
     }
 
@@ -42,6 +44,10 @@ public class Database {
                 }
             }
         } return filtered;
+    }
+
+    public Tags getCategories() {
+        return categories;
     }
 
 }

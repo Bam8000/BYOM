@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 public class Tags {
     private ArrayList<String> categories;
+    private ArrayList<String> blacklist;
 
     public Tags(ArrayList<Event> events) {
         categories = new ArrayList<>();
+        blacklist = new ArrayList<>();
         for (Event e : events) {
             for (String tag : e.getCategories()) {
                 if (!categories.contains(tag)) {
@@ -20,9 +22,16 @@ public class Tags {
         }
     }
 
+    public void addToBlacklist(String tag) {
+        blacklist.add(tag);
+        if (categories.contains(tag)) {
+            categories.remove(tag);
+        }
+    }
+
     public void updateCategories(Event e) {
         for (String tag : e.getCategories()) {
-            if (!this.categories.contains(tag)) {
+            if (!this.categories.contains(tag) && !blacklist.contains(tag)) {
                 categories.add(tag);
             }
         }
