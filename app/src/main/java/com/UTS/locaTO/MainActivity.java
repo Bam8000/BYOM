@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void zoneClick(Event model) {
-
         Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
         mapIntent.setPackage("com.google.android.apps.maps");

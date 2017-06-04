@@ -30,7 +30,7 @@ public class Event implements Comparable {
         return eventName;
     }
 
-    public String getLocation() {
+    public String getEventLocation() {
         return location;
     }
 
@@ -52,8 +52,9 @@ public class Event implements Comparable {
      */
     public String getDistance() {
         //TODO
-        return null;
+
     }
+
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
     I'm just gonna display the categories.
