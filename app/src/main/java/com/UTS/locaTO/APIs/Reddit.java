@@ -43,11 +43,11 @@ public class Reddit extends AsyncTask<Void, Void, ArrayList<Event>> {
             JSONObject json = new JSONObject(response.body().string());
             JSONArray list = json.getJSONObject("data").getJSONArray("children");
             JSONObject recent = list.getJSONObject(0).getJSONObject("data");
-            String currentDate = new SimpleDateFormat("dd-MMMM-yyyy", Locale.CANADA).format(new Date());
+            String currentDate = new SimpleDateFormat("d-MMM-yyyy", Locale.CANADA).format(new Date());
             String redditDate = recent.getString("title").split(" - ")[0];
             if (currentDate.equalsIgnoreCase(redditDate)) {
                 String[] items = recent.getString("selftext").split("\\n\\n");
-                ArrayList<Event> events = new ArrayList<Event>();
+                ArrayList<Event> events = new ArrayList<>();
                 Log.i("APIs.Reddit", "Updating events from /u/torontothingstodo");
                 for (String item : items) {
                     String title = item.replaceAll("(.*\\[)|(\\].*)", "");
