@@ -1,9 +1,22 @@
 package com.UTS.locaTO;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.MapsInitializer;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static java.lang.Math.round;
 
 /**
  * Created by Mio on 5/17/2017.
@@ -11,7 +24,8 @@ import java.util.Date;
 
 public class Event implements Comparable {
     private String eventName;
-    private String location;
+    private String address;
+    private Location location;
     private double cost;
     private Date time;
     private ArrayList<String> keywords;
@@ -19,8 +33,9 @@ public class Event implements Comparable {
     private String url;
     private String photoUrl;
 
-    public Event(String eventName, String location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url, String photoUrl) {
+    public Event(String eventName, String address, Location location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url, String photoUrl) {
         this.eventName = eventName;
+        this.address = address;
         this.location = location;
         this.time = time;
         this.keywords = keywords;
@@ -35,7 +50,7 @@ public class Event implements Comparable {
     }
 
     public String getEventLocation() {
-        return location;
+        return address;
     }
 
     public Date getTime() {
@@ -54,9 +69,10 @@ public class Event implements Comparable {
     Returns a string of the distance, in km, from the current location.
     Appends the string "km" to the end of the number.
      */
-    public String getDistance() {
-        //TODO
-        return null;
+    public String getDistance(Location currLocation) {
+        float dist = currLocation.distanceTo(location);
+        DecimalFormat df = new DecimalFormat("###.0");
+        return df.format(dist) + " km";
     }
 
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
@@ -110,7 +126,7 @@ public class Event implements Comparable {
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
             Event e = (Event) obj;
-            if (e.getEventName().equals(eventName) && e.getEventLocation().equals(location) && e.getTime().equals(time)) {
+            if (e.getEventName().equals(eventName) && e.getEventLocation().equals(address) && e.getTime().equals(time)) {
                 return true;
             }
         }

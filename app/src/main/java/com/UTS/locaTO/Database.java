@@ -15,7 +15,7 @@ public class Database {
     private Tags categories;
 
     public Database() {
-        this.events = new ArrayList<Event>();
+        this.events = new ArrayList<>();
         categories = new Tags(events);
     }
 
