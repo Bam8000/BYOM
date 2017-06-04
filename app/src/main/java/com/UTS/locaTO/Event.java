@@ -52,6 +52,7 @@ public class Event implements Comparable {
      */
     public String getDistance() {
         //TODO
+        return null;
     }
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
@@ -60,7 +61,7 @@ public class Event implements Comparable {
     public ArrayList<String> getCategories() { return categories; }
 
     public String stringCategories() {
-        String str = ""
+        String str = "";
         for (int i=0; i<categories.size(); i++) {
             str += categories.get(i);
             if (i != categories.size()-1) {
