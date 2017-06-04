@@ -13,13 +13,15 @@ import com.UTS.locaTO.Event;
 import com.UTS.locaTO.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 /**
  * Created by Benn on 2017-05-29.
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
-    private Database dataset;
+    private ArrayList<Event> dataset;
 
     public interface IZoneClick{
         void zoneClick(Event model);
@@ -45,7 +47,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     IZoneClick callback;
     public Context context; //Don't really know what this is... but it doesn't give any errors
-    public EventsAdapter(Database dataset, IZoneClick callback, Context contextInner) {
+    public EventsAdapter(ArrayList<Event> dataset, IZoneClick callback, Context contextInner) {
         this.dataset = dataset;
         context = contextInner;
         this.callback = callback;
@@ -64,7 +66,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Event item = dataset.getEvents().get(position);
+        final Event item = dataset.get(position);
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +88,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return dataset.getEvents().size();
+        return dataset.size();
     }
 
 

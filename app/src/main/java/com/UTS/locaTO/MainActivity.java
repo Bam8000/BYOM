@@ -11,7 +11,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +36,15 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     private Database database;
     private OkHttpClient client;
     private Reddit reddit;
+
     private Eventbrite eventbrite;
+    private double lat;
+    private double lng;
+
+    private RecyclerView mLstSearch;
+    private EventsAdapter mEventsAdapter;
+    private ArrayList<Event> mData = new ArrayList<>();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         this.client = new OkHttpClient();
         this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
+
+        getLocation(); //updates lat and lng
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +112,72 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
                 this.database.addEvent(event);
             }
         }
+    }
+
+    //github.com/marceloneil/MinoTour
+    public void getUI(){
+        setContentView(R.layout.activity_main);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mLstSearch = (RecyclerView) findViewById(R.id.content_main_lstSearch);
+        if(mLstSearch != null) {
+            mLstSearch.setHasFixedSize(true);
+        } else {
+            Log.i("mLstSearch", "mLstSearch is null");
+        }
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLstSearch.setLayoutManager(mLayoutManager);
+        mEventsAdapter = new EventsAdapter(mData, this, this);
+        mLstSearch.setAdapter(mEventsAdapter);
+
+        if(toolbar != null) {
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            setSupportActionBar(toolbar);
+        } else {
+            Log.i("toolbar", "toolbar is null");
+        }
+
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        if(drawer != null) {
+            drawer.addDrawerListener(toggle);
+        } else {
+            Log.i("drawer", "drawer is null");
+        }
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if(navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        } else {
+            Log.i("navigationView", "navigationView is null");
+        }*/
+
+        //updates the thing
+        mEventsAdapter.notifyDataSetChanged();
+    }
+
+    //refresh
+    void refreshItems() {
+        // Load items
+        Log.i("one","reloaded");
+        loadItems(); //FIX!!
+        // Load complete
+    }
+
+    void loadItems() {
+        reddit.execute();
+        eventbrite.execute(lat, lng);
     }
 
     //github.com/marceloneil/MinoTour
@@ -178,8 +257,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     }
 
     public void onLocationChanged(Location location) {
-        double lat = (location.getLatitude());
-        double lng = (location.getLongitude());
+        lat = (location.getLatitude());
+        lng = (location.getLongitude());
         Log.i("Location", "Lat: " + lat + ", Lng: " + lng);
         this.eventbrite.execute(lat, lng);
     }
