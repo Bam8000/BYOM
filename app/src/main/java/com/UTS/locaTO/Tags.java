@@ -7,31 +7,42 @@ import java.util.ArrayList;
  */
 
 public class Tags {
-    private ArrayList<Event> events;
-    private String title;
+    private ArrayList<String> categories;
+    private ArrayList<String> blacklist;
 
-    public Tags (String title) {
-        this.title = title;
-        events = new ArrayList<Event>();
+    public Tags(ArrayList<Event> events) {
+        categories = new ArrayList<>();
+        blacklist = new ArrayList<>();
+        for (Event e : events) {
+            for (String tag : e.getCategories()) {
+                if (!categories.contains(tag)) {
+                    categories.add(tag);
+                }
+            }
+        }
     }
 
-    public void addEvent(Event event) {
-        events.add(event);
+    public void addToBlacklist(String tag) {
+        blacklist.add(tag);
+        if (categories.contains(tag)) {
+            categories.remove(tag);
+        }
     }
 
-    public String getTitle() {
-        return title;
+    public void updateCategories(Event e) {
+        for (String tag : e.getCategories()) {
+            if (!this.categories.contains(tag) && !blacklist.contains(tag)) {
+                categories.add(tag);
+            }
+        }
     }
 
-    public ArrayList<Event> display() {
-        return events;
-    }
-
-    public String toString() {
-        String s = title;
-        for (Event event : events) {
-            s += event + "\n";
-        } return s;
+    public String displayCategories() {
+        String s = "";
+        for (int i = 0; i < categories.size() - 1; i++) {
+            s += categories.get(i);
+        } s += categories.get(categories.size() - 1);
+        return s;
     }
 
 }

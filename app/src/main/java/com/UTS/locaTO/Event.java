@@ -1,5 +1,7 @@
 package com.UTS.locaTO;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,7 +32,7 @@ public class Event implements Comparable {
         return eventName;
     }
 
-    public String getLocation() {
+    public String getEventLocation() {
         return location;
     }
 
@@ -54,6 +56,7 @@ public class Event implements Comparable {
         //TODO
         return null;
     }
+
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
     I'm just gonna display the categories.
@@ -84,7 +87,7 @@ public class Event implements Comparable {
     }
 
     @Override
-    public int compareTo(Object obj) {
+    public int compareTo(@NonNull Object obj) {
         Date d = (Date) obj;
         if (time.after(d)) {
             return -1;
@@ -99,7 +102,7 @@ public class Event implements Comparable {
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
             Event e = (Event) obj;
-            if (e.getEventName().equals(eventName) && e.getLocation().equals(location) && e.getTime().equals(time)) {
+            if (e.getEventName().equals(eventName) && e.getEventLocation().equals(location) && e.getTime().equals(time)) {
                 return true;
             }
         }
