@@ -1,5 +1,6 @@
 package com.UTS.locaTO.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 
 import com.UTS.locaTO.Database;
 import com.UTS.locaTO.Event;
-import com.UTS.locaTO.MainActivity;
 import com.UTS.locaTO.R;
 import com.squareup.picasso.Picasso;
 
@@ -44,8 +44,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     IZoneClick callback;
-    public MainActivity context; //Don't really know what this is... but it doesn't give any errors
-    public EventsAdapter(Database dataset, IZoneClick callback, MainActivity contextInner) {
+    public Context context; //Don't really know what this is... but it doesn't give any errors
+    public EventsAdapter(Database dataset, IZoneClick callback, Context contextInner) {
         this.dataset = dataset;
         context = contextInner;
         this.callback = callback;
