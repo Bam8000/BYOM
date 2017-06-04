@@ -77,8 +77,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.txtTags.setText("Tags: " + item.getCategories());
 
         //NEED TO CUSTOMIZE THIS FOR OUR PLACEHOLDER PHOTO
-        if(item.photoUrl != null) {
-            String stringPhoto = item.photoUrl.replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
+        if(item.getPhotoUrl() != null) {
+            String stringPhoto = item.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
 
             Picasso.with(context).load(stringPhoto).into(holder.locationImage); //ADD Picasso Class
         }

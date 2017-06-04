@@ -27,7 +27,7 @@ public class Event implements Comparable {
         this.categories = categories;
         this.cost = cost;
         this.url = url;
-        this.photoUrl = photoUrl
+        this.photoUrl = photoUrl;
     }
 
     public String getEventName() {
