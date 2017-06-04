@@ -90,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onNewEvents(ArrayList<Event> events) {
-        for (Event event : events) {
-            this.database.addEvent(event);
+        if (events != null) {
+            for (Event event : events) {
+                this.database.addEvent(event);
+            }
         }
     }
 

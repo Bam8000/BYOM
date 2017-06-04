@@ -11,10 +11,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,7 +26,7 @@ import okhttp3.Response;
  * Created by Marcel O'Neil on 5/29/17.
  */
 
-public class Eventbrite extends AsyncTask<Void, Void, ArrayList<Event>> {
+public class Eventbrite extends AsyncTask<ArrayList<Double>, Void, ArrayList<Event>> {
 
     private MainActivity mActivity;
 
@@ -31,12 +34,24 @@ public class Eventbrite extends AsyncTask<Void, Void, ArrayList<Event>> {
         this.mActivity = mActivity;
     }
 
-    protected ArrayList<Event> doInBackground(Void... voids) {
-
-        Request request = new Request.Builder()
-                .url("https://locato.1lab.me/eventbrite")
-                .build();
+    protected ArrayList<Event> doInBackground(ArrayList<Double>... arrayLists) {
         try {
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("lat", arrayLists[0].get(0).toString());
+            params.put("lng", arrayLists[0].get(1).toString());
+
+            StringBuilder payload = new StringBuilder();
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (payload.length() != 0) payload.append('&');
+                payload.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                payload.append('=');
+                payload.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+
+            Request request = new Request.Builder()
+                    .url("http://192.168.2.23:3001/eventbrite" + payload)
+                    .build();
+
             Response response = this.mActivity.getClient().newCall(request).execute();
 
             // Parse JSON
