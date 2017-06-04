@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     private Reddit reddit;
 
     private Eventbrite eventbrite;
+    private Location location;
     private double lat;
     private double lng;
 
@@ -59,17 +60,9 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
 
-        getLocation(); //updates lat and lng
+        getLocation(); //instantiates lat, lng, and location.
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                reddit.execute();
-            }
-        });
+        getUI();
     }
 
     @Override
@@ -137,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLstSearch.setLayoutManager(mLayoutManager);
-        mEventsAdapter = new EventsAdapter(mData, this, this);
+        mEventsAdapter = new EventsAdapter(mData, this, this, location);
         mLstSearch.setAdapter(mEventsAdapter);
 
         if(toolbar != null) {
@@ -237,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }
 
         Location location = locationManager.getLastKnownLocation(provider);
+        this.location = location;
 
         if (location != null) {
             Log.i("Location", "Provider " + provider + " has been selected.");
