@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.net.Uri;
 import android.content.Intent;
 
+import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Database database;
     private OkHttpClient client;
     private Reddit reddit;
+    private Eventbrite eventbrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         this.database = new Database();
         this.client = new OkHttpClient();
         this.reddit = new Reddit(this);
+        this.eventbrite = new Eventbrite(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         double lat = (location.getLatitude());
         double lng = (location.getLongitude());
         Log.i("Location", "Lat: " + lat + ", Lng: " + lng);
+        this.eventbrite.execute(lat, lng);
     }
 
 }
