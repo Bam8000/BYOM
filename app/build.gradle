@@ -30,5 +30,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.google.android.gms:play-services-maps:10.2.6'
     compile 'com.google.android.gms:play-services-location:10.2.6'
+    compile group:'com.squareup.picasso', name:'picasso', version:'2.5.2'
     testCompile 'junit:junit:4.12'
 }

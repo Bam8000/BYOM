@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.UTS.locaTO.Database;
 import com.UTS.locaTO.Event;
+import com.UTS.locaTO.MainActivity;
 import com.UTS.locaTO.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Benn on 2017-05-29.
@@ -18,6 +20,10 @@ import com.UTS.locaTO.R;
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
     private Database dataset;
+
+    public interface IZoneClick{
+        void zoneClick(Event model);
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -37,9 +43,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         }
     }
 
-    public EventsAdapter(Database dataset) {
-        //TODO
+    IZoneClick callback;
+    public MainActivity context; //Don't really know what this is... but it doesn't give any errors
+    public EventsAdapter(Database dataset, IZoneClick callback, MainActivity contextInner) {
         this.dataset = dataset;
+        context = contextInner;
+        this.callback = callback;
     }
 
     @Override
