@@ -46,7 +46,29 @@ public class Event implements Comparable {
         return url;
     }
 
+    /*
+    Returns a string of the distance, in km, from the current location.
+    Appends the string "km" to the end of the number.
+     */
+    public String getDistance() {
+        //TODO
+    }
+
+    /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
+    I'm just gonna display the categories.
+     */
     public ArrayList<String> getCategories() { return categories; }
+
+    public String stringCategories() {
+        String str = ""
+        for (int i=0; i<categories.size(); i++) {
+            str += categories.get(i);
+            if (i != categories.size()-1) {
+                str += ", ";
+            }
+        }
+        return str;
+    }
 
     public ArrayList<String> getKeywords() {
         return keywords;

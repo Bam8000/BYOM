@@ -22,19 +22,18 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public View root;
-        public TextView txtTitle, txtDist, txtAddr, txtTags, txtTime;
-        public ImageView locationImage;
+        public TextView txtTitle, txtAddr, txtTags, txtTime;
+        public ImageView eventImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             root = itemView;
-            txtTitle = (TextView) itemView.findViewById(R.id.item_search_txtTitle); //PLACEHOLDERS TO FIX
-            txtDist = (TextView) itemView.findViewById(R.id.item_search_txtDistance);
-            txtAddr = (TextView) itemView.findViewById(R.id.item_search_txtAddress);
-            txtTags = (TextView) itemView.findViewById(R.id.item_search_txtTags);
-            txtTime = (TextView) itemView.findViewById(R.id.item_search_txtTime);
-            locationImage = (ImageView) itemView.findViewById(R.id.locationImage);
+            txtTitle = (TextView) itemView.findViewById(R.id.item_txtTitle); //PLACEHOLDERS TO FIX
+            txtAddr = (TextView) itemView.findViewById(R.id.item_txtAddress);
+            txtTags = (TextView) itemView.findViewById(R.id.item_txtTags);
+            txtTime = (TextView) itemView.findViewById(R.id.item_txtTime);
+            eventImage = (ImageView) itemView.findViewById(R.id.eventImage);
         }
     }
 
@@ -63,11 +62,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 callback.zoneClick(item); //HOW DOES THIS WORK?
             }
         });
-        holder.txtTitle.setText(item.getEventName());
-        holder.txtDist.setText(item.distance.text); //FIX
+        holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance() + ")");
         holder.txtAddr.setText(item.getLocation());
-        holder.txtTime.setText(item.getTime());
-        holder.txtTags.setText(item.getKeywords()); //CHANGE!!!!!
+        holder.txtTime.setText(item.getTime().toString());
+        holder.txtTags.setText("Tags: " + item.getCategories());
 
         //NEED TO CUSTOMIZE THIS FOR OUR PLACEHOLDER PHOTO
         if(item.photoUrl != null) {
