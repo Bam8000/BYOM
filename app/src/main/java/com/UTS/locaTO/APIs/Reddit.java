@@ -52,7 +52,7 @@ public class Reddit extends AsyncTask<Void, Void, ArrayList<Event>> {
                 for (String item : items) {
                     String title = item.replaceAll("(.*\\[)|(\\].*)", "");
                     String link = item.replaceAll("(.*\\()|(\\).*)", "");
-                    events.add(new Event(title, null, null, null, null, 0, link, null));
+                    events.add(new Event(title, null, null, null, new ArrayList<String>(), 0, link, null));
                 }
                 return events;
             } else {
