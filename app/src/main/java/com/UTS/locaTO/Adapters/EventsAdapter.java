@@ -72,7 +72,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             }
         });
         holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance() + ")");
-        holder.txtAddr.setText(item.getLocation());
+        holder.txtAddr.setText(item.getEventLocation());
         holder.txtTime.setText(item.getTime().toString());
         holder.txtTags.setText("Tags: " + item.getCategories());
 
@@ -80,7 +80,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         if(item.getPhotoUrl() != null) {
             String stringPhoto = item.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
 
-            Picasso.with(context).load(stringPhoto).into(holder.locationImage); //ADD Picasso Class
+            Picasso.with(context).load(stringPhoto).into(holder.eventImage); //ADD Picasso Class
         }
     }
 
