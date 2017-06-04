@@ -97,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //github.com/marceloneil/MinoTour
     public void zoneClick(Event model) {
-        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
+        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getEventLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
