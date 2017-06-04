@@ -22,12 +22,13 @@ import android.content.Intent;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
+import com.UTS.locaTO.Adapters.EventsAdapter;
 
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EventsAdapter.IZoneClick {
 
     private Database database;
     private OkHttpClient client;
