@@ -69,12 +69,13 @@ public class Event implements Comparable {
     Returns a string of the distance, in km, from the current location.
     Appends the string "km" to the end of the number.
      */
+    /*
     public String getDistance(Location currLocation) {
 
         DecimalFormat df = new DecimalFormat("###.0");
         return df.format(dist) + " km";
     }
-
+    */
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
     public String getPhotoUrl() {
         //TODO
