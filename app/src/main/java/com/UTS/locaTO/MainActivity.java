@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
+import com.UTS.locaTO.APIs.Toronto;
 import com.UTS.locaTO.Adapters.EventsAdapter;
 
 import java.util.ArrayList;
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
     private Database database;
     private OkHttpClient client;
-    private Reddit reddit;
-
     private Eventbrite eventbrite;
+    private Reddit reddit;
+    private Toronto toronto;
+
     private Location location;
     private double lat;
     private double lng;
@@ -57,10 +59,12 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         this.database = new Database();
         this.client = new OkHttpClient();
-        this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
+        this.reddit = new Reddit(this);
+        this.toronto = new Toronto(this);
 
-        getLocation(); //instantiates lat, lng, and location.
+        lat = 43.6929598;
+        lng = -79.4008331;
 
         getUI();
     }
@@ -70,7 +74,11 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         super.onResume();
 
         this.reddit.execute();
+        this.toronto.execute();
         this.getLocation();
+
+        lat = 43.6929598;
+        lng = -79.4008331;
     }
 
     /*@Override
@@ -192,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
             startActivity(mapIntent);
         }*/
 
-        Intent myIntent = new Intent(MainActivity.this, R.layout.activity_event_card.class);
+        Intent myIntent = new Intent(MainActivity.this, activity_event_card.class);
         myIntent.putExtra("query_name", model.getEventName() + "");
         myIntent.putExtra("query_address", model.getEventLocation());
         myIntent.putExtra("query_distance", model.getDistance(location));
@@ -200,7 +208,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
         myIntent.putExtra("query_description", model.getDescription());
         myIntent.putExtra("query_tags", model.getCategories());
-        myIntent.putExtra("query_map", model.getMapUrl());
+
+
         if (model.getPhotoUrl() != null) {
             myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
         }
