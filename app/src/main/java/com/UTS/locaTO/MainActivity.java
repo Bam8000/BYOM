@@ -199,17 +199,17 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }*/
 
         Intent myIntent = new Intent(MainActivity.this, activity_event_card.class);
-        myIntent.putExtra("query_name", model.getEventName());
+        myIntent.putExtra("query_name", model.getEventName() + "");
         myIntent.putExtra("query_address", model.getEventLocation());
         myIntent.putExtra("query_distance", model.getDistance(location));
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
         myIntent.putExtra("query_description", model.getDescription());
         myIntent.putExtra("query_tags", model.getCategories());
-        
 
-        if (model.photoUrl != null) {
-            myIntent.putExtra("query_image", model.photoUrl.replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
+
+        if (model.getPhotoUrl() != null) {
+            myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
         }
         MainActivity.this.startActivity(myIntent);
     }
