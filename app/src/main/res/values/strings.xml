@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
     <string name="item_txtTitleCard">Title</string>
+    <string name="button_Map">Open in Google Maps</string>
     <string name="item_txtDistanceCard">Distance</string>
     <string name="item_txtTimeCard">Time</string>
     <string name="item_txtAddressCard">Address</string>
