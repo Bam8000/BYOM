@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
 
+        getLocation(); //instantiates lat, lng, and location.
+
+        lat = 43.6929598;
+        lng = -79.4008331;
+
         getUI();
     }
 
@@ -68,7 +73,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         super.onResume();
 
         this.reddit.execute();
-        this.getLocation(); //instantiates lat, lng, and location.
+        this.getLocation();
+
+        lat = 43.6929598;
+        lng = -79.4008331;
     }
 
     /*@Override
@@ -191,17 +199,18 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }*/
 
         Intent myIntent = new Intent(MainActivity.this, activity_event_card.class);
-        myIntent.putExtra("query_name_distance", model.getEventName() + " (" + model.getDistance(location) + ")");
+        myIntent.putExtra("query_name", model.getEventName() + "");
         myIntent.putExtra("query_address", model.getEventLocation());
+        myIntent.putExtra("query_distance", model.getDistance(location));
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
-        myIntent.putExtra("query_description",
-                model.getDescription() + "\nFor more information, visit " + model.getUrl() + ".");
-        myIntent.putExtra("query_tags", "Tags: " + model.getCategories());
+        myIntent.putExtra("query_description", model.getDescription());
+        myIntent.putExtra("query_tags", model.getCategories());
+
+
         if (model.getPhotoUrl() != null) {
             myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
         }
-
         MainActivity.this.startActivity(myIntent);
     }
 
