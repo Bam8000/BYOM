@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
     private Database database;
     private OkHttpClient client;
-    private Eventbrite eventbrite;
-    private Reddit reddit;
-    private Toronto toronto;
 
     private double lat;
     private double lng;
@@ -52,21 +49,20 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         this.database = new Database();
         this.client = new OkHttpClient();
-        this.eventbrite = new Eventbrite(this);
-        this.reddit = new Reddit(this);
-        this.toronto = new Toronto(this);
+
+        this.loadItems();
 
         this.getUI();
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
         this.reddit.execute();
         this.toronto.execute();
         this.getLocation();
-    }
+    }*/
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,20 +102,22 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     }
 
     //github.com/marceloneil/MinoTour
-    public void getUI(){
+    public void getUI() {
         setContentView(R.layout.activity_main);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Refresh items
-                refreshItems();
+                Log.i("refresh", "start");
+                loadItems();
+                Log.i("refresh", "stop");
             }
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mLstSearch = (RecyclerView) findViewById(R.id.content_main_lstSearch);
-        if(mLstSearch != null) {
+        if (mLstSearch != null) {
             mLstSearch.setHasFixedSize(true);
         } else {
             Log.i("mLstSearch", "mLstSearch is null");
@@ -131,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         mEventsAdapter = new EventsAdapter(database.getEvents(), this, this);
         mLstSearch.setAdapter(mEventsAdapter);
 
-        if(toolbar != null) {
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
             toolbar.setNavigationIcon(R.drawable.ic_menu);
 
@@ -166,18 +164,14 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         mEventsAdapter.notifyDataSetChanged();
     }
 
-    //refresh
-    public void refreshItems() {
-        // Load items
-        Log.i("one","reloaded");
-        this.loadItems(); //FIX!!
-        // Load complete
-    }
-
     public void loadItems() {
         // this.eventbrite.execute(this.lat, this.lng);
-        this.reddit.execute();
-        this.toronto.execute();
+        //Eventbrite eventbrite = new Eventbrite(this);
+        Reddit reddit = new Reddit(this);
+        Toronto toronto = new Toronto(this);
+        //eventbrite.execute(lat, lng);
+        reddit.execute();
+        toronto.execute();
     }
 
     //github.com/marceloneil/MinoTour

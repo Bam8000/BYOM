@@ -76,7 +76,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         });
         holder.txtTitle.setText(item.getEventName());
         holder.txtTime.setText(item.getTime().toString());
-        holder.txtDist.setText("12 km");
+        holder.txtDist.setText("");
 
         if (item.getPhotoUrl() != null) {
             if (!item.getPhotoUrl().isEmpty()) {

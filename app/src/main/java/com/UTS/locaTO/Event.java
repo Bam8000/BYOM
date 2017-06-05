@@ -128,7 +128,7 @@ public class Event implements Comparable {
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
             Event e = (Event) obj;
-            if (e.getEventName().equals(eventName) && e.getEventLocation().equals(address) && e.getTime().equals(time)) {
+            if (e.getEventName().equals(eventName)) {
                 return true;
             }
         }
