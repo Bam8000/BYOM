@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
+import com.UTS.locaTO.APIs.Toronto;
 import com.UTS.locaTO.Adapters.EventsAdapter;
 
 import java.util.ArrayList;
@@ -36,9 +37,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
     private Database database;
     private OkHttpClient client;
-    private Reddit reddit;
-
     private Eventbrite eventbrite;
+    private Reddit reddit;
+    private Toronto toronto;
+
     private Location location;
     private double lat;
     private double lng;
@@ -57,10 +59,9 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         this.database = new Database();
         this.client = new OkHttpClient();
-        this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
-
-        getLocation(); //instantiates lat, lng, and location.
+        this.reddit = new Reddit(this);
+        this.toronto = new Toronto(this);
 
         lat = 43.6929598;
         lng = -79.4008331;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         super.onResume();
 
         this.reddit.execute();
+        this.toronto.execute();
         this.getLocation();
 
         lat = 43.6929598;

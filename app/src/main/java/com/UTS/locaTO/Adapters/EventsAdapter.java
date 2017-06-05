@@ -77,7 +77,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 callback.zoneClick(item); //HOW DOES THIS WORK?
             }
         });
-        holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance(location) + ")");
+        holder.txtTitle.setText(item.getEventName() + " (sdfgsdfgsdfg)");
         holder.txtAddr.setText(item.getEventLocation());
         holder.txtTime.setText(item.getTime().toString());
         holder.txtTags.setText("Tags: " + item.stringCategories());
