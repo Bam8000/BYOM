@@ -49,7 +49,7 @@ public class EventCardActivity extends AppCompatActivity {
         txtTags.setText(tags);
 
         if(photoUrl != null) {
-            Picasso.with(context).load(photoUrl).into(eventImage); //what context?
+            Picasso.with(this).load(photoUrl).into(eventImage); //what context?
         }
 
 
@@ -59,6 +59,5 @@ public class EventCardActivity extends AppCompatActivity {
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         }*/
-
     }
 }
