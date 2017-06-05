@@ -191,42 +191,25 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
     //github.com/marceloneil/MinoTour
     public void zoneClick(Event model) {
-        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getEventLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
+        /*Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(model.getEventLocation()) + "(" + Uri.encode(model.getEventName()) + ")");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
-        }
+        }*/
 
-        /*Intent myIntent = new Intent(MainActivity.this, expand_card.class);
-        myIntent.putExtra("query_name", model.name);
-        myIntent.putExtra("query_address", model.vicinity);
-        if (model.rating != null) {
-            myIntent.putExtra("query_rating", model.rating.toString());
-        } else {
-            myIntent.putExtra("query_rating", "No Rating");
-        }
-        myIntent.putExtra("query_distance", model.distance.text);
-        Integer price_int = model.price_level;
-        String price_string;
-        if (price_int == null) {
-            price_string = "Not Available";
-        } else if (price_int == 0) {
-            price_string = "Free";
-        } else if (price_int == 1) {
-            price_string = "Inexpensive";
-        } else if (price_int == 2) {
-            price_string = "Moderate";
-        } else if (price_int == 3) {
-            price_string = "Expensive";
-        } else {
-            price_string = "Very Expensive";
-        }
-        myIntent.putExtra("query_price", price_string);
+        Intent myIntent = new Intent(MainActivity.this, activity_event_card.class);
+        myIntent.putExtra("query_name", model.getEventName());
+        myIntent.putExtra("query_address", model.getEventLocation());
+        myIntent.putExtra("query_distance", model.getDistance(location));
+        myIntent.putExtra("query_time", model.getTime().toString());
+        myIntent.putExtra("query_cost", "Price: " + model.getCost());
+        myIntent.putExtra("query_description", model.getDescription());
+
         if (model.photoUrl != null) {
             myIntent.putExtra("query_image", model.photoUrl.replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
         }
-        MainActivity.this.startActivity(myIntent);*/
+        MainActivity.this.startActivity(myIntent);
     }
 
     public void getLocation() {
