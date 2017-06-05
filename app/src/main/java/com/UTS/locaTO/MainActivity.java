@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     private Reddit reddit;
     private Toronto toronto;
 
-    private Location location;
     private double lat;
     private double lng;
 
@@ -57,10 +56,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         this.reddit = new Reddit(this);
         this.toronto = new Toronto(this);
 
-        lat = 43.6929598;
-        lng = -79.4008331;
-
-        getUI();
+        this.getUI();
     }
 
     @Override
@@ -70,9 +66,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         this.reddit.execute();
         this.toronto.execute();
         this.getLocation();
-
-        lat = 43.6929598;
-        lng = -79.4008331;
     }
 
     /*@Override
@@ -134,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLstSearch.setLayoutManager(mLayoutManager);
-        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this, location);
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this);
         mLstSearch.setAdapter(mEventsAdapter);
 
         if(toolbar != null) {
@@ -173,17 +166,17 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     }
 
     //refresh
-    void refreshItems() {
+    public void refreshItems() {
         // Load items
         Log.i("one","reloaded");
-        loadItems(); //FIX!!
+        this.loadItems(); //FIX!!
         // Load complete
     }
 
-    void loadItems() {
-        reddit.execute();
-        eventbrite.execute(lat, lng);
-        toronto.execute();
+    public void loadItems() {
+        // this.eventbrite.execute(this.lat, this.lng);
+        this.reddit.execute();
+        this.toronto.execute();
     }
 
     //github.com/marceloneil/MinoTour
@@ -196,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }*/
 
         Intent myIntent = new Intent(MainActivity.this, EventCardActivity.class);
-        myIntent.putExtra("query_name", model.getEventName() + " (" + model.getDistance(location) + ")");
+        myIntent.putExtra("query_name", model.getEventName() + " (" + model.getDistance(this.lat, this.lng) + ")");
         myIntent.putExtra("query_address", model.getEventLocation());
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
@@ -227,7 +220,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }
 
         Location location = locationManager.getLastKnownLocation(provider);
-        this.location = location;
 
         if (location != null) {
             Log.i("Location", "Provider " + provider + " has been selected.");
@@ -248,10 +240,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     }
 
     public void onLocationChanged(Location location) {
-        lat = (location.getLatitude());
-        lng = (location.getLongitude());
-        Log.i("Location", "Lat: " + lat + ", Lng: " + lng);
-        this.eventbrite.execute(lat, lng);
+        this.lat = location.getLatitude();
+        this.lng = location.getLongitude();
+        Log.i("Location", "Lat: " + this.lat + ", Lng: " + this.lng);
+        // this.eventbrite.execute(lat, lng);
     }
 
 }
