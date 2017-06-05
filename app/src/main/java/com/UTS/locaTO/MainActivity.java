@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
                 Log.i("events", "added a new event: " + event.getEventName());
             }
         }
-
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this);
+        mLstSearch.setAdapter(mEventsAdapter);
     }
 
     //github.com/marceloneil/MinoTour
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }*/
 
         Intent myIntent = new Intent(MainActivity.this, EventCardActivity.class);
-        myIntent.putExtra("query_name", model.getEventName() + " (" + model.getDistance(this.lat, this.lng) + ")");
+        myIntent.putExtra("query_name", model.getEventName() + " (asdfasdfas)");
         myIntent.putExtra("query_address", model.getEventLocation());
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());

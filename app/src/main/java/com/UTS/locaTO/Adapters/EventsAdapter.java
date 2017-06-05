@@ -1,7 +1,6 @@
 package com.UTS.locaTO.Adapters;
 
 import android.content.Context;
-import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.UTS.locaTO.Database;
 import com.UTS.locaTO.Event;
 import com.UTS.locaTO.R;
 import com.squareup.picasso.Picasso;
@@ -24,9 +22,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private ArrayList<Event> dataset;
 
-    private Location location;
 
-    public interface IZoneClick{
+    public interface IZoneClick {
         void zoneClick(Event model);
     }
 
@@ -50,11 +47,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     IZoneClick callback;
     public Context context;
-    public EventsAdapter(ArrayList<Event> dataset, IZoneClick callback, Context contextInner, Location location) {
+
+    public EventsAdapter(ArrayList<Event> dataset, IZoneClick callback, Context contextInner) {
         this.dataset = dataset;
         context = contextInner;
         this.callback = callback;
-        this.location = location;
     }
 
     @Override
@@ -82,7 +79,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.txtTime.setText(item.getTime().toString());
         holder.txtTags.setText("Tags: " + item.stringCategories());
 
-        if(item.getPhotoUrl() != null) {
+        if (item.getPhotoUrl() != null) {
             String stringPhoto = item.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
 
             Picasso.with(context).load(stringPhoto).into(holder.eventImage);

@@ -35,7 +35,7 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
     protected ArrayList<Event> doInBackground(Void... voids) {
         try {
             Request request = new Request.Builder()
-                    .url("https://locato.1lab.me/toronto")
+                    .url("http://192.168.2.23:3001/toronto")
                     .build();
 
             Response response = this.mActivity.getClient().newCall(request).execute();
