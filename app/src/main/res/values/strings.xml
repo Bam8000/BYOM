@@ -8,6 +8,7 @@
     <string name="item_txtTimeCard">Time</string>
     <string name="item_txtAddressCard">Address</string>
     <string name="item_txtTagsCard">Tags</string>
+    <string name="item_txtDescriptionCard">Description</string>
 
     <string name="title_activity_categories">CategoriesActivity</string>
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -76,6 +77,12 @@ public class Event implements Comparable {
         return df.format(dist) + " km";
     }
     */
+
+    public String getMapUrl() {
+        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(address));
+        return location.toString();
+    }
+
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
     public String getPhotoUrl() {
         //TODO
