@@ -4,6 +4,29 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/holo_blue_dark"
+        android:weightSum="1"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_logo" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
     <ImageView
         android:id="@+id/eventImageCard"
         android:layout_width="match_parent"
@@ -89,5 +112,5 @@
         android:paddingLeft="5dp"
         android:layout_alignRight="@+id/item_txtTagsCard"
         android:layout_alignEnd="@+id/item_txtTagsCard" />
-
+</LinearLayout>
 </RelativeLayout>
