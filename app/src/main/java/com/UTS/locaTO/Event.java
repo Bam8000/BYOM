@@ -25,20 +25,16 @@ import static java.lang.Math.round;
 public class Event implements Comparable {
     private String eventName;
     private String address;
-    private Location location;
     private double cost;
     private Date time;
-    private ArrayList<String> keywords;
     private ArrayList<String> categories;
     private String url;
     private String photoUrl;
 
-    public Event(String eventName, String address, Location location,  Date time, ArrayList<String> keywords, ArrayList<String> categories, double cost, String url, String photoUrl) {
+    public Event(String eventName, String address,  Date time, ArrayList<String> categories, double cost, String url, String photoUrl) {
         this.eventName = eventName;
         this.address = address;
-        this.location = location;
         this.time = time;
-        this.keywords = keywords;
         this.categories = categories;
         this.cost = cost;
         this.url = url;
@@ -69,12 +65,12 @@ public class Event implements Comparable {
     Returns a string of the distance, in km, from the current location.
     Appends the string "km" to the end of the number.
      */
-    public String getDistance(Location currLocation) {
+    /*public String getDistance(Location currLocation) {
         float dist = currLocation.distanceTo(location);
         DecimalFormat df = new DecimalFormat("###.0");
         return df.format(dist) + " km";
     }
-
+    */
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
     public String getPhotoUrl() {
         //TODO
@@ -96,18 +92,6 @@ public class Event implements Comparable {
             }
         }
         return str;
-    }
-
-    public ArrayList<String> getKeywords() {
-        return keywords;
-    }
-
-    public String displayKeywords() {
-        String s = "";
-        for (int i = 0; i < keywords.size() - 1; i++) {
-            s += keywords.get(i) + ", ";
-        } s += keywords.get(keywords.size() - 1);
-        return s;
     }
 
     @Override
@@ -135,7 +119,7 @@ public class Event implements Comparable {
 
     @Override
     public String toString() {
-        return "Event name: " + eventName + "\nLocation: " + location + "\nDate: " + time + "\nCost: " + cost + "\nLink: " + url;
+        return "Event name: " + eventName + "\nLocation: " + address + "\nDate: " + time + "\nCost: " + cost + "\nLink: " + url;
     }
 
 
