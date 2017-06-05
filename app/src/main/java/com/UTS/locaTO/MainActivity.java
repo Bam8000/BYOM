@@ -209,6 +209,12 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         myIntent.putExtra("query_description", model.getDescription());
         myIntent.putExtra("query_tags", model.getCategories());
 
+        if (model.getPhotoUrl() != null) {
+            myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
+        }
+        MainActivity.this.startActivity(myIntent);
+    }
+
 
         if (model.getPhotoUrl() != null) {
             myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
