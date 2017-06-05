@@ -1,6 +1,7 @@
 package com.UTS.locaTO.Adapters;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,17 @@ import com.UTS.locaTO.Event;
 import com.UTS.locaTO.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 /**
  * Created by Benn on 2017-05-29.
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
-    private Database dataset;
+    private ArrayList<Event> dataset;
+
+    private Location location;
 
     public interface IZoneClick{
         void zoneClick(Event model);
@@ -45,10 +50,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     IZoneClick callback;
     public Context context; //Don't really know what this is... but it doesn't give any errors
-    public EventsAdapter(Database dataset, IZoneClick callback, Context contextInner) {
+    public EventsAdapter(ArrayList<Event> dataset, IZoneClick callback, Context contextInner, Location location) {
         this.dataset = dataset;
         context = contextInner;
         this.callback = callback;
+        this.location = location;
     }
 
     @Override
@@ -64,17 +70,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Event item = dataset.getEvents().get(position);
+        final Event item = dataset.get(position);
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callback.zoneClick(item); //HOW DOES THIS WORK?
             }
         });
-        holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance() + ")");
+        holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance(location) + ")");
         holder.txtAddr.setText(item.getEventLocation());
         holder.txtTime.setText(item.getTime().toString());
-        holder.txtTags.setText("Tags: " + item.getCategories());
+        holder.txtTags.setText("Tags: " + item.stringCategories());
 
         //NEED TO CUSTOMIZE THIS FOR OUR PLACEHOLDER PHOTO
         if(item.getPhotoUrl() != null) {
@@ -86,8 +92,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return dataset.getEvents().size();
+        return dataset.size();
     }
-
 
 }

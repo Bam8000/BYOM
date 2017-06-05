@@ -11,7 +11,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -22,17 +25,26 @@ import android.content.Intent;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
+import com.UTS.locaTO.Adapters.EventsAdapter;
 
 import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EventsAdapter.IZoneClick {
 
     private Database database;
     private OkHttpClient client;
     private Reddit reddit;
+
     private Eventbrite eventbrite;
+    private Location location;
+    private double lat;
+    private double lng;
+
+    private RecyclerView mLstSearch;
+    private EventsAdapter mEventsAdapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +59,12 @@ public class MainActivity extends AppCompatActivity {
         this.reddit = new Reddit(this);
         this.eventbrite = new Eventbrite(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                reddit.execute();
-            }
-        });
+        getLocation(); //instantiates lat, lng, and location.
+
+        lat = 43.6929598;
+        lng = -79.4008331;
+
+        getUI();
     }
 
     @Override
@@ -64,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.reddit.execute();
         this.getLocation();
+
+        lat = 43.6929598;
+        lng = -79.4008331;
     }
 
     @Override
@@ -96,8 +108,76 @@ public class MainActivity extends AppCompatActivity {
         if (events != null) {
             for (Event event : events) {
                 this.database.addEvent(event);
+                Log.i("events", "added a new event: " + event.getEventName());
             }
         }
+
+    }
+
+    //github.com/marceloneil/MinoTour
+    public void getUI(){
+        setContentView(R.layout.activity_main);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mLstSearch = (RecyclerView) findViewById(R.id.content_main_lstSearch);
+        if(mLstSearch != null) {
+            mLstSearch.setHasFixedSize(true);
+        } else {
+            Log.i("mLstSearch", "mLstSearch is null");
+        }
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mLstSearch.setLayoutManager(mLayoutManager);
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this, location);
+        mLstSearch.setAdapter(mEventsAdapter);
+
+        if(toolbar != null) {
+            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+            setSupportActionBar(toolbar);
+        } else {
+            Log.i("toolbar", "toolbar is null");
+        }
+
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        if(drawer != null) {
+            drawer.addDrawerListener(toggle);
+        } else {
+            Log.i("drawer", "drawer is null");
+        }
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if(navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(this);
+        } else {
+            Log.i("navigationView", "navigationView is null");
+        }*/
+
+        //updates the thing
+        mEventsAdapter.notifyDataSetChanged();
+    }
+
+    //refresh
+    void refreshItems() {
+        // Load items
+        Log.i("one","reloaded");
+        loadItems(); //FIX!!
+        // Load complete
+    }
+
+    void loadItems() {
+        reddit.execute();
+        eventbrite.execute(lat, lng);
     }
 
     //github.com/marceloneil/MinoTour
@@ -157,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Location location = locationManager.getLastKnownLocation(provider);
+        this.location = location;
 
         if (location != null) {
             Log.i("Location", "Provider " + provider + " has been selected.");
@@ -177,8 +258,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLocationChanged(Location location) {
-        double lat = (location.getLatitude());
-        double lng = (location.getLongitude());
+        lat = (location.getLatitude());
+        lng = (location.getLongitude());
         Log.i("Location", "Lat: " + lat + ", Lng: " + lng);
         this.eventbrite.execute(lat, lng);
     }
