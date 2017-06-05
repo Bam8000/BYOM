@@ -86,7 +86,7 @@ public class Event implements Comparable {
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
     public String getPhotoUrl() {
         //TODO
-        return null;
+        return this.photoUrl;
     }
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.

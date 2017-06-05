@@ -1,67 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:gravity="center">
 
-    <RelativeLayout
+    <ImageView
+        android:contentDescription="@+id/item_txtTitle"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:src="@drawable/toronto"
+        android:id="@+id/locationImage"
+        android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/eventImage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="183dp"
-            android:layout_marginStart="183dp"
-            app:srcCompat="@mipmap/ic_launcher" />
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:background="@color/colorPrimaryOpacity"
+        android:id="@+id/titleFrame"
+        android:layout_gravity="top" >
 
         <TextView
-            android:id="@+id/item_txtTitle"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Title"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/item_txtTime"
-            android:layout_alignEnd="@+id/item_txtTime" />
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:id="@+id/item_txtTitle"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/item_txtTime"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Time"
-            android:layout_below="@+id/item_txtTitle"
-            android:layout_alignRight="@+id/item_txtAddress"
-            android:layout_alignEnd="@+id/item_txtAddress" />
-
-        <TextView
-            android:id="@+id/item_txtAddress"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/item_txtTime"
-            android:layout_marginEnd="180dp"
-            android:layout_marginRight="180dp"
-            android:text="Address" />
-
-        <TextView
-            android:id="@+id/item_txtTags"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignEnd="@+id/item_txtAddress"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/item_txtAddress"
-            android:text="Tags"
-            android:textAllCaps="false"
-            android:textStyle="bold" />
     </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:background="@color/colorPrimaryOpacity"
+        android:id="@+id/descFrame"
+        android:layout_gravity="bottom" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/item_txtTime"
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"  />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/item_txtDistance"
+            android:textColor="@color/common_google_signin_btn_text_dark"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+
 </FrameLayout>

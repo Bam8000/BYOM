@@ -46,7 +46,7 @@ public class Eventbrite extends AsyncTask<Double, Void, ArrayList<Event>> {
             }
 
             Request request = new Request.Builder()
-                    .url("http://192.168.2.23:3001/eventbrite/events" + payload)
+                    .url("https://locato.1lab.me/eventbrite/events" + payload)
                     .build();
 
             Response response = this.mActivity.getClient().newCall(request).execute();

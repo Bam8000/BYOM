@@ -2,6 +2,7 @@ package com.UTS.locaTO.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public View root;
-        public TextView txtTitle, txtAddr, txtTags, txtTime;
+        public TextView txtTitle, txtTime, txtDist;
         public ImageView eventImage;
 
         public ViewHolder(View itemView) {
@@ -38,10 +39,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
             root = itemView;
             txtTitle = (TextView) itemView.findViewById(R.id.item_txtTitle);
-            txtAddr = (TextView) itemView.findViewById(R.id.item_txtAddress);
-            txtTags = (TextView) itemView.findViewById(R.id.item_txtTags);
+            txtDist = (TextView) itemView.findViewById(R.id.item_txtDistance);
             txtTime = (TextView) itemView.findViewById(R.id.item_txtTime);
-            eventImage = (ImageView) itemView.findViewById(R.id.eventImage);
+            eventImage = (ImageView) itemView.findViewById(R.id.locationImage);
         }
     }
 
@@ -74,15 +74,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 callback.zoneClick(item); //HOW DOES THIS WORK?
             }
         });
-        holder.txtTitle.setText(item.getEventName() + " (sdfgsdfgsdfg)");
-        holder.txtAddr.setText(item.getEventLocation());
+        holder.txtTitle.setText(item.getEventName());
         holder.txtTime.setText(item.getTime().toString());
-        holder.txtTags.setText("Tags: " + item.stringCategories());
+        holder.txtDist.setText("12 km");
 
         if (item.getPhotoUrl() != null) {
-            String stringPhoto = item.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
-
-            Picasso.with(context).load(stringPhoto).into(holder.eventImage);
+            if (!item.getPhotoUrl().isEmpty()) {
+                Picasso.with(context).load(item.getPhotoUrl()).into(holder.eventImage);
+            }
         }
     }
 
