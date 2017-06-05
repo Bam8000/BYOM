@@ -205,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
         myIntent.putExtra("query_description", model.getDescription());
+        myIntent.putExtra("query_tags", model.getCategories());
+        
 
         if (model.photoUrl != null) {
             myIntent.putExtra("query_image", model.photoUrl.replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
