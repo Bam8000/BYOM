@@ -1,23 +1,17 @@
 package com.UTS.locaTO;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Geocoder;
-import android.location.Location;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.MapsInitializer;
-
-import java.text.DecimalFormat;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import org.json.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
-import static java.lang.Math.round;
+
 
 /**
  * Created by Mio on 5/17/2017.
@@ -70,13 +64,26 @@ public class Event implements Comparable {
     Returns a string of the distance, in km, from the current location.
     Appends the string "km" to the end of the number.
      */
-    /*
-    public String getDistance(Location currLocation) {
 
-        DecimalFormat df = new DecimalFormat("###.0");
-        return df.format(dist) + " km";
+    public String getDistance(double currLat, double currLng) throws IOException, JSONException {
+        /*This may or may not work
+        String dest = Uri.parse(Uri.encode(address)).toString();
+        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + currLat + "," + currLng
+                + "&destinations=" + dest + "&key=AIzaSyCQvqMhyOo_BaEkHvvLuZGHeF4mlw6CUsw");
+
+        Scanner scanner = new Scanner(url.openStream());
+        String s = new String();
+        while (scanner.hasNext()) {
+            s += scanner.nextLine();
+        }
+        scanner.close();
+
+        JSONObject object = new JSONObject(s);
+            return String.valueOf(object.getJSONArray("distance").get(0));
+        */
+        return "1.2 km";
     }
-    */
+
 
     public String getMapUrl() {
         Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(address));
