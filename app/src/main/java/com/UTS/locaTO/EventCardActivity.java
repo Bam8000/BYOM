@@ -13,6 +13,8 @@ public class EventCardActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String name = intent.getStringExtra(String query_name);
+        String name = intent.getStringExtra("query_name");
+        String address = intent.getStringExtra("query_address");
+
     }
 }

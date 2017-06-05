@@ -7,8 +7,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,11 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.net.Uri;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
@@ -145,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         if(toolbar != null) {
             setSupportActionBar(toolbar);
-            toolbar.setNavigationIcon(R.drawable.ic_menu_sort_by_size);
+            toolbar.setNavigationIcon(R.drawable.ic_menu);
 
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -201,15 +195,14 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }*/
 
         Intent myIntent = new Intent(MainActivity.this, EventCardActivity.class);
-        myIntent.putExtra("query_name", model.getEventName() + "");
+        myIntent.putExtra("query_name", model.getEventName() + " (" + model.getDistance(location) + ")");
         myIntent.putExtra("query_address", model.getEventLocation());
-        myIntent.putExtra("query_distance", model.getDistance(location));
         myIntent.putExtra("query_time", model.getTime().toString());
         myIntent.putExtra("query_cost", "Price: " + model.getCost());
-        myIntent.putExtra("query_description", model.getDescription());
+        myIntent.putExtra("query_description",
+                model.getDescription() + "\n\nFor more information please visit " + model.getUrl() + ".");
         myIntent.putExtra("query_tags", model.getCategories());
-
-
+        myIntent.putExtra("query_map", model.getMapUrl());
         if (model.getPhotoUrl() != null) {
             myIntent.putExtra("query_image", model.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "="));
         }
