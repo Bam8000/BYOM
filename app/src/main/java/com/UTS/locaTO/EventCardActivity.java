@@ -1,6 +1,7 @@
 package com.UTS.locaTO;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -48,7 +49,7 @@ public class EventCardActivity extends AppCompatActivity {
         txtTags.setText(tags);
 
         if(photoUrl != null) {
-            Picasso.with(context).load(photoUrl).into(eventImage); //ADD Picasso Class
+            Picasso.with(context).load(photoUrl).into(eventImage); //what context?
         }
 
 
