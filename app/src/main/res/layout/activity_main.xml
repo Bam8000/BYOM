@@ -16,27 +16,18 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="50dp"
             android:background="@android:color/holo_blue_dark"
             android:weightSum="1"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/logo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.91">
-
-                <ImageButton
-                    android:id="@+id/logoButton"
-                    style="@style/Widget.AppCompat.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_logo"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-
-            </RelativeLayout>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_logo_large" />
 
         </android.support.v7.widget.Toolbar>
 

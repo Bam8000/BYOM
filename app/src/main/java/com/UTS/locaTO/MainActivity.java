@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.net.Uri;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.UTS.locaTO.APIs.Eventbrite;
 import com.UTS.locaTO.APIs.Reddit;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         lng = -79.4008331;
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public OkHttpClient getClient() {
         return this.client;
@@ -141,8 +142,16 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         mLstSearch.setAdapter(mEventsAdapter);
 
         if(toolbar != null) {
-            toolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
             setSupportActionBar(toolbar);
+            toolbar.setNavigationIcon(R.drawable.ic_menu_sort_by_size);
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO
+                    //Open sidebar
+                }
+            });
         } else {
             Log.i("toolbar", "toolbar is null");
         }
