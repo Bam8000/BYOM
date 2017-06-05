@@ -69,18 +69,17 @@ public class Event implements Comparable {
     Returns a string of the distance, in km, from the current location.
     Appends the string "km" to the end of the number.
      */
-    /*public String getDistance(Location currLocation) {
-        float dist = currLocation.distanceTo(location);
+    public String getDistance(Location currLocation) {
+
         DecimalFormat df = new DecimalFormat("###.0");
         return df.format(dist) + " km";
     }
-    */
+
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
     public String getPhotoUrl() {
         //TODO
         return null;
     }
-
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
     I'm just gonna display the categories.
