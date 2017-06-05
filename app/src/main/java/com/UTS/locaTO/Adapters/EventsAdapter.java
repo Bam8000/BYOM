@@ -40,7 +40,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             super(itemView);
 
             root = itemView;
-            txtTitle = (TextView) itemView.findViewById(R.id.item_txtTitle); //PLACEHOLDERS TO FIX
+            txtTitle = (TextView) itemView.findViewById(R.id.item_txtTitle);
             txtAddr = (TextView) itemView.findViewById(R.id.item_txtAddress);
             txtTags = (TextView) itemView.findViewById(R.id.item_txtTags);
             txtTime = (TextView) itemView.findViewById(R.id.item_txtTime);
@@ -49,7 +49,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     IZoneClick callback;
-    public Context context; //Don't really know what this is... but it doesn't give any errors
+    public Context context;
     public EventsAdapter(ArrayList<Event> dataset, IZoneClick callback, Context contextInner, Location location) {
         this.dataset = dataset;
         context = contextInner;
@@ -77,7 +77,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 callback.zoneClick(item); //HOW DOES THIS WORK?
             }
         });
-        holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance(location) + ")");
+        holder.txtTitle.setText(item.getEventName() + " (sdfgsdfgsdfg)");
         holder.txtAddr.setText(item.getEventLocation());
         holder.txtTime.setText(item.getTime().toString());
         holder.txtTags.setText("Tags: " + item.stringCategories());

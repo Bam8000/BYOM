@@ -28,8 +28,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <uses-library android:name="com.google.android.maps" />
         </activity>
-
+        <activity android:name=".EventCardActivity"
+                  android:parentActivityName=".MainActivity">
+        </activity>
         <activity
             android:name=".CategoriesActivity"
             android:label="@string/title_activity_categories"
