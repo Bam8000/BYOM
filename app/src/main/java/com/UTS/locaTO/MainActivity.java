@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
             startActivity(mapIntent);
         }*/
 
-        Intent myIntent = new Intent(MainActivity.this, activity_event_card.class);
+        Intent myIntent = new Intent(MainActivity.this, EventCardActivity.class);
         myIntent.putExtra("query_name", model.getEventName() + "");
         myIntent.putExtra("query_address", model.getEventLocation());
         myIntent.putExtra("query_distance", model.getDistance(location));
