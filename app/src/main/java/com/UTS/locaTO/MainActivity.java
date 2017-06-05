@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
     private RecyclerView mLstSearch;
     private EventsAdapter mEventsAdapter;
-    private ArrayList<Event> mData = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
@@ -62,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         getLocation(); //instantiates lat, lng, and location.
 
+        lat = 43.6929598;
+        lng = -79.4008331;
+
         getUI();
     }
 
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
 
         this.reddit.execute();
         this.getLocation();
+
+        lat = 43.6929598;
+        lng = -79.4008331;
     }
 
     @Override
@@ -103,8 +108,10 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         if (events != null) {
             for (Event event : events) {
                 this.database.addEvent(event);
+                Log.i("events", "added a new event: " + event.getEventName());
             }
         }
+
     }
 
     //github.com/marceloneil/MinoTour
@@ -130,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLstSearch.setLayoutManager(mLayoutManager);
-        mEventsAdapter = new EventsAdapter(mData, this, this, location);
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this, location);
         mLstSearch.setAdapter(mEventsAdapter);
 
         if(toolbar != null) {

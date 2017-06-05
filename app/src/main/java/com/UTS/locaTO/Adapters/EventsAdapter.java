@@ -80,7 +80,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.txtTitle.setText(item.getEventName() + " (" + item.getDistance(location) + ")");
         holder.txtAddr.setText(item.getEventLocation());
         holder.txtTime.setText(item.getTime().toString());
-        holder.txtTags.setText("Tags: " + item.getCategories());
+        holder.txtTags.setText("Tags: " + item.stringCategories());
 
         //NEED TO CUSTOMIZE THIS FOR OUR PLACEHOLDER PHOTO
         if(item.getPhotoUrl() != null) {
@@ -94,6 +94,5 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public int getItemCount() {
         return dataset.size();
     }
-
 
 }
