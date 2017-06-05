@@ -2,4 +2,9 @@
     <string name="app_name">locaTO</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
+    <string name="item_txtTitleCard">Title</string>
+    <string name="item_txtDistanceCard">Distance</string>
+    <string name="item_txtTimeCard">Time</string>
+    <string name="item_txtAddressCard">Address</string>
+    <string name="item_txtTagsCard">Tags</string>
 </resources>
