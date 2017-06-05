@@ -25,15 +25,17 @@ import static java.lang.Math.round;
 public class Event implements Comparable {
     private String eventName;
     private String address;
+    private String description;
     private double cost;
     private Date time;
     private ArrayList<String> categories;
     private String url;
     private String photoUrl;
 
-    public Event(String eventName, String address,  Date time, ArrayList<String> categories, double cost, String url, String photoUrl) {
+    public Event(String eventName, String address, String description, Date time, ArrayList<String> categories, double cost, String url, String photoUrl) {
         this.eventName = eventName;
         this.address = address;
+        this.description = description;
         this.time = time;
         this.categories = categories;
         this.cost = cost;
@@ -48,6 +50,8 @@ public class Event implements Comparable {
     public String getEventLocation() {
         return address;
     }
+
+    public String getDescription() { return description; }
 
     public Date getTime() {
         return time;
