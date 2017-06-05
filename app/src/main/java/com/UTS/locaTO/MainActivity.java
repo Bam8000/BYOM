@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
     void loadItems() {
         reddit.execute();
         eventbrite.execute(lat, lng);
+        toronto.execute();
     }
 
     //github.com/marceloneil/MinoTour

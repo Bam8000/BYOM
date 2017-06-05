@@ -82,11 +82,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.txtTime.setText(item.getTime().toString());
         holder.txtTags.setText("Tags: " + item.stringCategories());
 
-        //NEED TO CUSTOMIZE THIS FOR OUR PLACEHOLDER PHOTO
         if(item.getPhotoUrl() != null) {
             String stringPhoto = item.getPhotoUrl().replaceAll("\\\\u0026", "&").replaceAll("\\\\u003d", "=");
 
-            Picasso.with(context).load(stringPhoto).into(holder.eventImage); //ADD Picasso Class
+            Picasso.with(context).load(stringPhoto).into(holder.eventImage);
         }
     }
 
