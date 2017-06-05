@@ -65,7 +65,7 @@ public class Event implements Comparable {
     Appends the string "km" to the end of the number.
      */
 
-    public String getDistance(double currLat, double currLng) throws IOException, JSONException {
+    public String getDistance(double currLat, double currLng) {
         /*This may or may not work
         String dest = Uri.parse(Uri.encode(address)).toString();
         URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + currLat + "," + currLng

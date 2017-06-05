@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
                 Log.i("events", "added a new event: " + event.getEventName());
             }
         }
-        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this);
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this, lat, lng);
         mLstSearch.setAdapter(mEventsAdapter);
     }
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements EventsAdapter.IZo
         // use a linear layout manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLstSearch.setLayoutManager(mLayoutManager);
-        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this);
+        mEventsAdapter = new EventsAdapter(database.getEvents(), this, this, lat, lng);
         mLstSearch.setAdapter(mEventsAdapter);
 
         if (toolbar != null) {
