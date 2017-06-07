@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-        } else {
-            Log.w(this.getLocalClassName(), "toolbar is null");
         }
 
         // Swipe Refresh
@@ -73,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
         mList = (RecyclerView) findViewById(R.id.content_main_lstSearch);
         if (mList != null) {
             mList.setHasFixedSize(true);
-        } else {
-            Log.w(this.getLocalClassName(), "mList is null");
         }
 
         // Layout Manager
@@ -94,16 +90,12 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_close);
         if (drawer != null) {
             drawer.addDrawerListener(toggle);
-        } else {
-            Log.w(this.getLocalClassName(), "drawer is null");
         }
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
-        } else {
-            Log.i("navigationView", "navigationView is null");
         }
 
         this.loadItems();

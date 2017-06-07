@@ -2,6 +2,7 @@ package com.UTS.locaTO.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private final Context context;
     private final Double lat, lng;
 
-    private onEventClickListener mListener;
+    private static onEventClickListener mListener;
 
     public EventsAdapter(ArrayList<Event> eventList, Context context, Double lat, Double lng) {
         this.eventList = eventList;
