@@ -13,6 +13,7 @@ import java.util.Map;
 
 
 /**
+ * Object holding all properties of an Event
  * Created by Mio on 5/17/2017.
  */
 
@@ -26,6 +27,17 @@ public class Event implements Comparable {
     private String url;
     private String photo;
 
+    /**
+     * Constructor creating Event object given properties of event from data
+     * @param name Name or title of the event
+     * @param address Location of the event
+     * @param description Description of the event
+     * @param time Time of the event occurring that day
+     * @param categories Which categories the event fits under
+     * @param cost Cost of the event
+     * @param url URL for the event given by the organizer
+     * @param photo Photo pulled from data of the event
+     */
     public Event(String name, String address, String description, Date time, ArrayList<String> categories, double cost, String url, String photo) {
         this.name = name;
         this.address = address;
@@ -37,33 +49,59 @@ public class Event implements Comparable {
         this.photo = photo;
     }
 
+    /**
+     * Accessor method for the name of the event
+     * @return Name of the event
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Accessor method for address of the event
+     * @return Address of the event
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Accessor method for description of the event
+     * @return Description of the event
+     */
     public String getDescription() { return description; }
 
+    /**
+     * Accessor method for time of the event
+     * @return Time of the event
+     */
     public Date getTime() {
         return time;
     }
 
+    /**
+     * Accessor method for cost of the event
+     * @return Cost of the event
+     */
     public double getCost() {
         return cost;
     }
 
+    /**
+     * Accessor method for URL of the event
+     * @return URL of the event
+     */
     public String getUrl() {
         return url;
     }
 
-    /*
-    Returns a string of the distance, in km, from the current location.
-    Appends the string "km" to the end of the number.
+    /**
+     * Returns a string of the distance, in km, from the current location.
+       Appends the string "km" to the end of the number.
+     * @param currLat Latitude of current location of user
+     * @param currLng Longitude of current location of user
+     * @return Distance from current position of user to the location of the event
      */
-
     public String getDistance(double currLat, double currLng) {
         /*This may or may not work
         String dest = Uri.parse(Uri.encode(address)).toString();
@@ -83,7 +121,10 @@ public class Event implements Comparable {
         return "1.2 km";
     }
 
-
+    /**
+     * Accessor method for formatted URI to allow opening of the location of the event in Google Maps
+     * @return String URL of location in Google Maps
+     */
     public String getMapUri() {
         try {
             Map<String, String> params = new LinkedHashMap<>();
@@ -105,14 +146,17 @@ public class Event implements Comparable {
         }
     }
 
-    //Here's the method, Marcel for you to do. Using it in EventsAdapter.
+    /**
+     * Accessor method for photo of event
+     * @return URL of photo
+     */
     public String getPhoto() {
-        //TODO
         return this.photo;
     }
 
-    /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
-    I'm just gonna display the categories.
+    /**
+     * Accessor method for categories of event
+     * @return ArrayList of categories
      */
     public ArrayList<String> getCategories() { return categories; }
 
