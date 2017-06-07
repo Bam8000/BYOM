@@ -32,11 +32,11 @@ public class Reddit extends AsyncTask<Void, Void, ArrayList<Event>> {
     }
 
     protected ArrayList<Event> doInBackground(Void... voids) {
-
-        Request request = new Request.Builder()
-                .url("https://www.reddit.com/user/torontothingstodo/submitted.json")
-                .build();
         try {
+            Request request = new Request.Builder()
+                    .url("https://www.reddit.com/user/torontothingstodo/submitted.json")
+                    .build();
+
             Response response = this.mActivity.getClient().newCall(request).execute();
 
             // Parse JSON

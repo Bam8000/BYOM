@@ -15,34 +15,44 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * Created by Benn on 2017-05-29.
+ * Created by Marcel O'Neil on 2017-05-29.
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
-    private ArrayList<Event> eventList;
-    private IZoneClick callback;
-    private Context context;
-    private Double lat;
-    private Double lng;
+    private final ArrayList<Event> eventList;
+    private final Context context;
+    private final Double lat, lng;
 
-    public EventsAdapter(ArrayList<Event> eventList, IZoneClick callback, Context context, Double lat, Double lng) {
+    private onEventClickListener mListener;
+
+    public EventsAdapter(ArrayList<Event> eventList, Context context, Double lat, Double lng) {
         this.eventList = eventList;
-        this.callback = callback;
         this.context = context;
         this.lat = lat;
         this.lng = lng;
     }
 
-    public interface IZoneClick {
-        void zoneClick(Event model);
+    public interface onEventClickListener {
+        void onEventClick(Event model);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Set a listener that will be notified when an Event is selected.
+     *
+     * @param listener The listener to notify
+     */
+    public void setEventClickListener(onEventClickListener listener) {
+        mListener = listener;
+    }
 
-        private View root;
-        private TextView txtTitle, txtTime, txtDist;
-        private ImageView eventImage;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        private final View root;
+        private final TextView txtTitle;
+        private final TextView txtTime;
+        private final TextView txtDist;
+        private final ImageView eventImage;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -69,16 +79,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.zoneClick(item);
+                mListener.onEventClick(item);
             }
         });
 
-        holder.txtTitle.setText(item.getEventName());
+        holder.txtTitle.setText(item.getName());
         holder.txtTime.setText(item.getTime().toString());
         holder.txtDist.setText(item.getDistance(lat, lng));
 
-        if (!item.getPhotoUrl().isEmpty()) {
-            Picasso.with(context).load(item.getPhotoUrl()).into(holder.eventImage);
+        String photo = item.getPhoto();
+        if (photo.isEmpty()) {
+            // For some odd reason this is needed or else the default placeholder images get
+            // replaced by other loaded images
+            Picasso.with(context).load(R.drawable.toronto).into(holder.eventImage);
+        } else {
+            Picasso.with(context).load(photo).into(holder.eventImage);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.UTS.locaTO.APIs;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,6 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,7 +39,7 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
     protected ArrayList<Event> doInBackground(Void... voids) {
         try {
             Request request = new Request.Builder()
-                    .url("https://locato.1lab.me/toronto")
+                    .url("http://192.168.2.23:3001/toronto")
                     .build();
 
             Response response = this.mActivity.getClient().newCall(request).execute();
@@ -60,7 +64,7 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
                 Double cost = json.getDouble("cost");
                 String url = json.getString("url");
                 String photo = json.getString("photo");
-                events.add(new Event(name, description, location, time, keywords, cost, url, photo));
+                events.add(new Event(name, location, description, time, keywords, cost, url, photo));
             }
             return events;
         } catch (IOException | JSONException | ParseException e) {

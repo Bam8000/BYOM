@@ -2,15 +2,14 @@ package com.UTS.locaTO;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import org.json.*;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 /**
@@ -18,31 +17,31 @@ import java.util.Scanner;
  */
 
 public class Event implements Comparable {
-    private String eventName;
+    private String name;
     private String address;
     private String description;
     private double cost;
     private Date time;
     private ArrayList<String> categories;
     private String url;
-    private String photoUrl;
+    private String photo;
 
-    public Event(String eventName, String address, String description, Date time, ArrayList<String> categories, double cost, String url, String photoUrl) {
-        this.eventName = eventName;
+    public Event(String name, String address, String description, Date time, ArrayList<String> categories, double cost, String url, String photo) {
+        this.name = name;
         this.address = address;
         this.description = description;
         this.time = time;
         this.categories = categories;
         this.cost = cost;
         this.url = url;
-        this.photoUrl = photoUrl;
+        this.photo = photo;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
-    public String getEventLocation() {
+    public String getAddress() {
         return address;
     }
 
@@ -85,15 +84,31 @@ public class Event implements Comparable {
     }
 
 
-    public String getMapUrl() {
-        Uri location = Uri.parse("https://maps.google.com/maps?daddr=" + Uri.encode(address));
-        return location.toString();
+    public String getMapUri() {
+        try {
+            Map<String, String> params = new LinkedHashMap<>();
+            params.put("api", "1");
+            params.put("destination", this.getAddress());
+
+            StringBuilder payload = new StringBuilder();
+            for (Map.Entry<String, String> param : params.entrySet()) {
+                if (payload.length() != 0) payload.append('&'); else payload.append('?');
+                payload.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                payload.append('=');
+                payload.append(URLEncoder.encode(param.getValue(), "UTF-8"));
+            }
+
+            Uri uri = Uri.parse("https://www.google.com/maps/dir/" + payload);
+            return uri.toString();
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //Here's the method, Marcel for you to do. Using it in EventsAdapter.
-    public String getPhotoUrl() {
+    public String getPhoto() {
         //TODO
-        return this.photoUrl;
+        return this.photo;
     }
 
     /*Are categories and keywords separate things? I think it's a few too many different items for the user to process.
@@ -128,7 +143,7 @@ public class Event implements Comparable {
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
             Event e = (Event) obj;
-            if (e.getEventName().equals(eventName)) {
+            if (e.getName().equals(name)) {
                 return true;
             }
         }
@@ -137,7 +152,7 @@ public class Event implements Comparable {
 
     @Override
     public String toString() {
-        return "Event name: " + eventName + "\nLocation: " + address + "\nDate: " + time + "\nCost: " + cost + "\nLink: " + url;
+        return "Event name: " + name + "\nLocation: " + address + "\nDate: " + time + "\nCost: " + cost + "\nLink: " + url;
     }
 
 
