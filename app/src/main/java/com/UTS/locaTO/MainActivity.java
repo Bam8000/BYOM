@@ -103,10 +103,17 @@ public class MainActivity extends AppCompatActivity {
         mEventsAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * [Enter description here]
+     * @return
+     */
     public OkHttpClient getClient() {
         return this.client;
     }
 
+    /**
+     * [Enter description here]
+     */
     private void loadItems() {
         Reddit reddit = new Reddit(this);
         Toronto toronto = new Toronto(this);
@@ -115,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
         getLocation();
     }
 
+    /**
+     * [Enter description here]
+     */
     private void getLocation() {
         // Check for permissions
         if (ContextCompat.checkSelfPermission(this,
@@ -154,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * [Enter description here]
+     * @param events
+     */
     public void onNewEvents(ArrayList<Event> events) {
         if (events != null) {
             for (Event event : events) {
@@ -166,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    /**
+     * [Enter description here]
+     */
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -173,6 +190,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * [Enter description here]
+     */
     private EventsAdapter.onEventClickListener onEventClick = new EventsAdapter.onEventClickListener() {
         @Override
         public void onEventClick(Event model) {
@@ -189,6 +209,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * [Enter description here]
+     * @param location
+     */
     private void onLocationChanged(Location location) {
         this.lat = location.getLatitude();
         this.lng = location.getLongitude();

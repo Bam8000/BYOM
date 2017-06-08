@@ -160,6 +160,10 @@ public class Event implements Comparable {
      */
     public ArrayList<String> getCategories() { return categories; }
 
+    /**
+     * Returns categories of the event as a formatted String
+     * @return String of comma-separated categories
+     */
     public String stringCategories() {
         String str = "";
         for (int i=0; i<categories.size(); i++) {

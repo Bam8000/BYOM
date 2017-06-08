@@ -20,6 +20,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * [Enter description here]
  * Created by Marcel O'Neil on 5/29/17.
  */
 
@@ -27,10 +28,19 @@ public class Eventbrite extends AsyncTask<Double, Void, ArrayList<Event>> {
 
     private MainActivity mActivity;
 
+    /**
+     * [Enter description here]
+     * @param mActivity
+     */
     public Eventbrite(MainActivity mActivity) {
         this.mActivity = mActivity;
     }
 
+    /**
+     * [Enter description here]
+     * @param doubles
+     * @return
+     */
     protected ArrayList<Event> doInBackground(Double... doubles) {
         try {
             Map<String, Object> params = new LinkedHashMap<>();

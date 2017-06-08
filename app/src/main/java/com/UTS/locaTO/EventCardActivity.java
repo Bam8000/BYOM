@@ -65,6 +65,9 @@ public class EventCardActivity extends AppCompatActivity {
         mapButton.setOnClickListener(mGoogleMaps);
     }
 
+    /**
+     * [Enter description here]
+     */
     private View.OnClickListener mGoogleMaps = new View.OnClickListener() {
         public void onClick(View v) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);

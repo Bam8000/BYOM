@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
+ * [Enter description here]
  * Created by Marcel O'Neil on 2017-05-29.
  */
 
@@ -27,6 +28,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private static onEventClickListener mListener;
 
+    /**
+     * [Enter description here]
+     * @param eventList
+     * @param context
+     * @param lat
+     * @param lng
+     */
     public EventsAdapter(ArrayList<Event> eventList, Context context, Double lat, Double lng) {
         this.eventList = eventList;
         this.context = context;
@@ -34,6 +42,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         this.lng = lng;
     }
 
+    /**
+     * [Enter description here]
+     */
     public interface onEventClickListener {
         void onEventClick(Event model);
     }

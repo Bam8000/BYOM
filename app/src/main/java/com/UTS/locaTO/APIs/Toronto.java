@@ -25,6 +25,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * [Enter description here]
  * Created by Marcel O'Neil on 6/4/17.
  */
 
@@ -32,10 +33,19 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
 
     private MainActivity mActivity;
 
+    /**
+     * [Enter description here]
+     * @param mActivity
+     */
     public Toronto(MainActivity mActivity) {
         this.mActivity = mActivity;
     }
 
+    /**
+     * [Enter description here]
+     * @param voids
+     * @return
+     */
     protected ArrayList<Event> doInBackground(Void... voids) {
         try {
             Request request = new Request.Builder()
