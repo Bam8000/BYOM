@@ -1,7 +1,6 @@
 package com.UTS.locaTO.APIs;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.UTS.locaTO.Event;
 import com.UTS.locaTO.MainActivity;
@@ -20,26 +19,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * [Enter description here]
- * Created by Marcel O'Neil on 5/29/17.
+ * Eventbrite API (Unfinished)
  */
 
 public class Eventbrite extends AsyncTask<Double, Void, ArrayList<Event>> {
 
-    private MainActivity mActivity;
+    private final MainActivity mActivity;
 
     /**
-     * [Enter description here]
-     * @param mActivity
+     * Constructor for Eventbrite API
+     * @param mActivity context
      */
     public Eventbrite(MainActivity mActivity) {
         this.mActivity = mActivity;
     }
 
     /**
-     * [Enter description here]
-     * @param doubles
-     * @return
+     * Async http call
+     * @param doubles Latitude and Longitude
+     * @return Event List
      */
     protected ArrayList<Event> doInBackground(Double... doubles) {
         try {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /**
  * Class creating the list of categories from the available events, and also allows for blacklisting of categories.
- * Created by Mio on 5/25/2017.
  */
 
 public class Tags {

@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Activity for Event
+ */
+
 public class EventCardActivity extends AppCompatActivity {
 
     public TextView txtTitle, txtAddress, txtTime, txtCost, txtDescription, txtTags;
@@ -66,7 +70,7 @@ public class EventCardActivity extends AppCompatActivity {
     }
 
     /**
-     * [Enter description here]
+     * Callback for when the user requests directions
      */
     private View.OnClickListener mGoogleMaps = new View.OnClickListener() {
         public void onClick(View v) {

@@ -30,6 +30,10 @@ import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 
+/**
+ * Main Activity
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private Database database;
@@ -104,15 +108,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * [Enter description here]
-     * @return
+     * OkHttp client for API calls
+     * @return HTTP Client
      */
     public OkHttpClient getClient() {
         return this.client;
     }
 
     /**
-     * [Enter description here]
+     * Load events
      */
     private void loadItems() {
         Reddit reddit = new Reddit(this);
@@ -123,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * [Enter description here]
+     * Get current location from Android API
      */
     private void getLocation() {
         // Check for permissions
@@ -165,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * [Enter description here]
-     * @param events
+     * Callback for new events
+     * @param events Array of events to add to database
      */
     public void onNewEvents(ArrayList<Event> events) {
         if (events != null) {
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * [Enter description here]
+     * Callback for a category is selected
      */
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -191,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**
-     * [Enter description here]
+     * Callback for when an event is selected
      */
     private EventsAdapter.onEventClickListener onEventClick = new EventsAdapter.onEventClickListener() {
         @Override
@@ -201,8 +205,8 @@ public class MainActivity extends AppCompatActivity {
             myIntent.putExtra("address", model.getAddress());
             myIntent.putExtra("time", model.getTime().toString());
             myIntent.putExtra("cost", "Price: " + model.getCost());
-            myIntent.putExtra("description",
-                    model.getDescription() + "\n\nFor more information please visit " + model.getUrl() + ".");
+            myIntent.putExtra("description", model.getDescription());
+            myIntent.putExtra("url", model.getUrl());
             myIntent.putExtra("tags", model.getCategories());
             myIntent.putExtra("map", model.getMapUri());
             MainActivity.this.startActivity(myIntent);
@@ -210,8 +214,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**
-     * [Enter description here]
-     * @param location
+     * Callback for when the location is updated
+     * @param location Location of the users phone
      */
     private void onLocationChanged(Location location) {
         this.lat = location.getLatitude();

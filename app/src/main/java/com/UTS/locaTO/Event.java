@@ -14,7 +14,6 @@ import java.util.Map;
 
 /**
  * Object holding all properties of an Event
- * Created by Mio on 5/17/2017.
  */
 
 public class Event implements Comparable {

@@ -1,6 +1,5 @@
 package com.UTS.locaTO.APIs;
 
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,9 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,26 +21,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * [Enter description here]
- * Created by Marcel O'Neil on 6/4/17.
+ * Toronto Open Data API
  */
 
 public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
 
-    private MainActivity mActivity;
+    private final MainActivity mActivity;
 
     /**
-     * [Enter description here]
-     * @param mActivity
+     * Constructor for Toronto Open Data API
+     * @param mActivity context
      */
     public Toronto(MainActivity mActivity) {
         this.mActivity = mActivity;
     }
 
     /**
-     * [Enter description here]
-     * @param voids
-     * @return
+     * Async http call
+     * @param voids Void
+     * @return Event List
      */
     protected ArrayList<Event> doInBackground(Void... voids) {
         try {

@@ -7,7 +7,6 @@ import java.util.Set;
 
 /**
  * Database where all the Events are stored in one place
- * Created by Benn on 2017-05-15.
  */
 
 

@@ -2,7 +2,6 @@ package com.UTS.locaTO.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * [Enter description here]
- * Created by Marcel O'Neil on 2017-05-29.
+ * Adapter for the list of events
  */
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
@@ -29,11 +27,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private static onEventClickListener mListener;
 
     /**
-     * [Enter description here]
-     * @param eventList
-     * @param context
-     * @param lat
-     * @param lng
+     * Initialize list
+     * @param eventList List of events to be added
+     * @param context Context for Picasso image library
+     * @param lat Latitude of user
+     * @param lng Longitude of user
      */
     public EventsAdapter(ArrayList<Event> eventList, Context context, Double lat, Double lng) {
         this.eventList = eventList;
@@ -43,7 +41,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     /**
-     * [Enter description here]
+     * Listener interface for when an Event is selected
      */
     public interface onEventClickListener {
         void onEventClick(Event model);
@@ -58,6 +56,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         mListener = listener;
     }
 
+    /**
+     * ViewHolder for each Event
+     */
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private final View root;
@@ -66,6 +67,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         private final TextView txtDist;
         private final ImageView eventImage;
 
+        /**
+         * Create new ViewHolder
+         * @param itemView Event view
+         */
         private ViewHolder(View itemView) {
             super(itemView);
 
