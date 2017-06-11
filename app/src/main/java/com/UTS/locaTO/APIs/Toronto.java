@@ -44,7 +44,7 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
     protected ArrayList<Event> doInBackground(Void... voids) {
         try {
             Request request = new Request.Builder()
-                    .url("https://locato.1lab.me/toronto")
+                    .url("http://192.168.2.23:3001/toronto")
                     .build();
 
             Response response = this.mActivity.getClient().newCall(request).execute();
@@ -61,15 +61,15 @@ public class Toronto extends AsyncTask<Void, Void, ArrayList<Event>> {
                 String location = json.getString("location");
                 String timeString = json.getString("time");
                 Date time = formatter.parse(timeString.replaceAll("Z$", "+0000"));
-                JSONArray arr = json.getJSONArray("keywords");
-                ArrayList<String> keywords = new ArrayList<>();
+                JSONArray arr = json.getJSONArray("categories");
+                ArrayList<String> categories = new ArrayList<>();
                 for(int j = 0; j < arr.length(); j++){
-                    keywords.add(arr.getString(j));
+                    categories.add(arr.getString(j));
                 }
                 Double cost = json.getDouble("cost");
                 String url = json.getString("url");
                 String photo = json.getString("photo");
-                events.add(new Event(name, location, description, time, keywords, cost, url, photo));
+                events.add(new Event(name, location, description, time, categories, cost, url, photo));
             }
             return events;
         } catch (IOException | JSONException | ParseException e) {

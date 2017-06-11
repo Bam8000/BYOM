@@ -3,9 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/bleh"
-            android:title="Bleh"
+            android:title="All"
             android:checked="true"/>
-
     </group>
 </menu>

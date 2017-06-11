@@ -68,6 +68,21 @@ public class Database {
     }
 
     /**
+     * Filters events to only contain the events that belong to a specific category
+     * @param category String specifying which categorie to include
+     * @return ArrayList of events that only belong to the specified category
+     */
+    public ArrayList<Event> getCategorizedEvents(String category) {
+        ArrayList<Event> filtered = new ArrayList<>();
+        for (Event e : events) {
+            if (e.getCategories().contains(category)) {
+                filtered.add(e);
+            }
+        }
+        return filtered;
+    }
+
+    /**
      * Accessor method for categories
      * @return Tags object of categories
      */

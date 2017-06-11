@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 
@@ -27,6 +28,7 @@ import com.UTS.locaTO.APIs.Toronto;
 import com.UTS.locaTO.Adapters.EventsAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import okhttp3.OkHttpClient;
 
@@ -41,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     private double lat;
     private double lng;
+    private ArrayList<String> categories;
 
-    private RecyclerView mList;
+    private RecyclerView mEventList;
     private EventsAdapter mEventsAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private Menu mCategoryMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,34 +76,40 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // List
-        mList = (RecyclerView) findViewById(R.id.content_main_lstSearch);
-        if (mList != null) {
-            mList.setHasFixedSize(true);
+        mEventList = (RecyclerView) findViewById(R.id.content_main_lstSearch);
+        if (mEventList != null) {
+            mEventList.setHasFixedSize(true);
         }
 
         // Layout Manager
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mList.setLayoutManager(mLayoutManager);
+        mEventList.setLayoutManager(mLayoutManager);
 
         // Events Adapter
         mEventsAdapter = new EventsAdapter(database.getEvents(), this, lat, lng);
         mEventsAdapter.setEventClickListener(onEventClick);
-        mList.setAdapter(mEventsAdapter);
+        mEventList.setAdapter(mEventsAdapter);
 
+        // Drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this,
                 drawer,
                 toolbar,
                 R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                R.string.navigation_drawer_close
+        );
         if (drawer != null) {
             drawer.addDrawerListener(toggle);
         }
         toggle.syncState();
 
+        // Navigation View (Pretty Drawer)
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             navigationView.setNavigationItemSelectedListener(onNavigationItemSelected);
+            categories = new ArrayList<>();
+            mCategoryMenu = navigationView.getMenu();
         }
 
         this.loadItems();
@@ -177,11 +187,33 @@ public class MainActivity extends AppCompatActivity {
             for (Event event : events) {
                 this.database.addEvent(event);
                 Log.i("Events", "added a new event: " + event.getName());
+                for (String category : event.getCategories()) {
+                    if (!categories.contains(category)) {
+                        categories.add(category);
+                    }
+                }
             }
         }
+        Collections.sort(categories);
+        for (String category : categories) {
+            mCategoryMenu.add(category);
+        }
         mEventsAdapter = new EventsAdapter(database.getEvents(), this, lat, lng);
-        mList.setAdapter(mEventsAdapter);
+        mEventList.setAdapter(mEventsAdapter);
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    /**
+     * Callback for categorized events
+     * @param category Category to display
+     */
+    public void onCategorizedEvents(String category) {
+        if (category.equals("All")) {
+            mEventsAdapter = new EventsAdapter(database.getEvents(), this, lat, lng);
+        } else {
+            mEventsAdapter = new EventsAdapter(database.getCategorizedEvents(category), this, lat, lng);
+        }
+        mEventList.setAdapter(mEventsAdapter);
     }
 
     /**
@@ -190,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelected = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            onCategorizedEvents(item.getTitle().toString());
             return true;
         }
     };
